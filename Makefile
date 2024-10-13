@@ -13,3 +13,6 @@ migrate_down:
 
 commit:
 	git add . && git-cz
+
+push:
+	git push -u origin HEAD

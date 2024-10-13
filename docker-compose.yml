@@ -14,12 +14,8 @@ services:
   app:
     build: .
     container_name: my_go_app
-    environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: admin
-      DB_PASSWORD: mypassword
-      DB_NAME: bravo-database
+    env_file:
+      - .env.local
     ports:
       - "8080:8080"
     depends_on:

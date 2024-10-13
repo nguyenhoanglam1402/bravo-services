@@ -10,6 +10,6 @@ func AuthenticationRouter(router *gin.RouterGroup) {
 	authRouter := router.Group("/auth")
 	{
 		authRouter.POST("/login", controllers.LoginHandler)
-		authRouter.POST("/sign-up")
+		authRouter.POST("/sign-up", controllers.SignUpHandler)
 	}
 }
