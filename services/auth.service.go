@@ -29,7 +29,7 @@ func SignUpService(bodyPld *payload_struct.SSignUpPayload) (*model.SUserModel, e
 			return errors.New("cannot create new account")
 		}
 
-		enUser := model.SUserModel{
+		enUser = model.SUserModel{
 			FullName: bodyPld.Fullname,
 			Email:    bodyPld.Email,
 			JobTitle: bodyPld.JobTitle,

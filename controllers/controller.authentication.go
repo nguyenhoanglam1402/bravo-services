@@ -37,5 +37,7 @@ func SignUpHandler(c *gin.Context) {
 		return
 	}
 
+	log.Printf("Data > %s", data.FullName)
+
 	c.JSON(http.StatusOK, gin.H{"data": data})
 }
