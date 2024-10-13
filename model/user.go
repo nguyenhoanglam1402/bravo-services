@@ -7,7 +7,7 @@ import (
 type SAuthentModel struct {
 	ID        string    `gorm:"type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
 	Username  string    `gorm:"type:varchar(50);not null" json:"username" binding:"required"`
-	Password  string    `gorm:"type:varchar(255);not null" json:"password" binding:"required"`
+	Password  string    `gorm:"type:varchar(255);not null" json:"-" binding:"required"`
 	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }

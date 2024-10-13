@@ -23,5 +23,5 @@ CREATE TABLE users
   PRIMARY KEY(id),
 
   CONSTRAINT fk_user_auth
-  FOREIGN KEY(auth_id) REFERENCES authentications(id)
+  FOREIGN KEY(auth_id) REFERENCES authentications(id) ON DELETE CASCADE
 );
