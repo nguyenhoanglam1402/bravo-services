@@ -1,0 +1,4 @@
+ALTER TABLE s_user_models
+DROP COLUMN IF EXISTS role_id;
+
+DROP TABLE IF EXISTS s_role_models CASCADE;

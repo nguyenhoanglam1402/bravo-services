@@ -1,13 +1,13 @@
 package database
 
 import (
-	"bravo-service/api/model"
 	"fmt"
 	"log"
 	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 var DB *gorm.DB
@@ -21,7 +21,7 @@ func InitDatabase() {
 		os.Getenv("POSTGRES_PORT"))
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
-		// Logger: logger.Default.LogMode(logger.Info),
+		Logger: logger.Default.LogMode(logger.Info),
 	})
 
 	if err != nil {
@@ -30,6 +30,6 @@ func InitDatabase() {
 
 	DB = db
 
-	DB.AutoMigrate(&model.SAuthentModel{})
-	DB.AutoMigrate(&model.SUserModel{})
+	// DB.AutoMigrate(&model.SAuthentModel{})
+	// DB.AutoMigrate(&model.SUserModel{})
 }

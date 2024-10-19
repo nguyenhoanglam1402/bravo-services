@@ -14,7 +14,7 @@ type SAuthentModel struct {
 
 type SUserModel struct {
 	ID        string        `gorm:"type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
-	FullName  string        `gorm:"size:255;not null" json:"fullname"`
+	Fullname  string        `gorm:"size:255;not null" json:"fullname"`
 	Email     string        `gorm:"size:255;not null;unique" json:"email"`
 	JobTitle  string        `gorm:"size:50" json:"job_title"`
 	Country   string        `gorm:"size:50" json:"country"`

@@ -1,2 +1,2 @@
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS authentications;
+DROP TABLE IF EXISTS s_user_models CASCADE;
+DROP TABLE IF EXISTS s_authent_models CASCADE;
