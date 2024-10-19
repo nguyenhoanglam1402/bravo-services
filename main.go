@@ -19,5 +19,6 @@ func main() {
 	router := gin.Default()
 	rV1 := router.Group("/api/v1")
 	routers.AuthenticationRouter(rV1)
+	routers.UserRouters(rV1)
 	router.Run(":8080")
 }

@@ -3,8 +3,6 @@ package controllers
 import (
 	"bravo-service/api/services"
 	payload_struct "bravo-service/api/structs/auth"
-	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,10 +13,22 @@ func LoginHandler(c *gin.Context) {
 
 	if err := c.ShouldBind(&bodyPld); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid payload structure", "detail": err.Error()})
+		return
 	}
 
-	fmt.Println(bodyPld.Password)
-	c.JSON(http.StatusOK, gin.H{"message": fmt.Sprintf("Username: %s, Password: %s", bodyPld.Username, bodyPld.Password)})
+	res, err := services.LoginService(&bodyPld)
+
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"data": gin.H{
+			"access_token": res,
+		}})
 }
 
 func SignUpHandler(c *gin.Context) {
@@ -32,12 +42,9 @@ func SignUpHandler(c *gin.Context) {
 	data, err := services.SignUpService(&bodyPld)
 
 	if err != nil {
-		log.Println(err)
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		return
 	}
-
-	log.Printf("Data > %s", data.FullName)
 
 	c.JSON(http.StatusOK, gin.H{"data": data})
 }

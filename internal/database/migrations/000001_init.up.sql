@@ -1,15 +1,17 @@
-CREATE TABLE authentications
+CREATE TABLE s_authent_models
 (
   id uuid DEFAULT gen_random_uuid(),
   username VARCHAR(50) NOT NULL,
-  password VARCHAR NOT NULL,
+  password VARCHAR(255) NOT NULL,
+
   created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP(3) NOT NULL,
+  deleted_at TIMESTAMP(3),
 
   PRIMARY KEY(id)
 );
 
-CREATE TABLE users
+CREATE TABLE s_user_models
 (
   id uuid DEFAULT gen_random_uuid(),
   fullname VARCHAR(255) NOT NULL,
@@ -17,11 +19,13 @@ CREATE TABLE users
   job_title VARCHAR(50) NOT NULL,
   country VARCHAR NOT NULL,
   auth_id uuid NOT NULL,
+
   created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP(3) NOT NULL,
+  deleted_at TIMESTAMP(3),
 
   PRIMARY KEY(id),
 
   CONSTRAINT fk_user_auth
-  FOREIGN KEY(auth_id) REFERENCES authentications(id) ON DELETE CASCADE
+  FOREIGN KEY(auth_id) REFERENCES s_authent_models(id) ON DELETE CASCADE
 );

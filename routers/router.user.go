@@ -1,11 +1,18 @@
 package routers
 
-import "github.com/gin-gonic/gin"
+import (
+	"bravo-service/api/controllers"
+	"bravo-service/api/middlewares"
 
-func UserRouters(router *gin.Engine) {
+	"github.com/gin-gonic/gin"
+)
+
+func UserRouters(router *gin.RouterGroup) {
 	userRt := router.Group("/users")
+	userRt.Use(middlewares.JWTMiddleware())
 	{
 		userRt.GET("/")
 		userRt.GET("/:id")
+		userRt.GET("/self/profile", controllers.GetProfileHandler)
 	}
 }
