@@ -28,7 +28,7 @@ make migrate_down # to rollback the migration record
 ```
 
 ```bash
-make migrate_force # to force update the previous migration record (Not recommend, please use create_migration instead)
+make migrate_force # to force update the database follow migration version (It's just used when database have any different change with migration version)
 ```
 
 ```bash
