@@ -34,10 +34,11 @@ func JWTMiddleware() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-
 		// Set the username from the token claims to the context
 		c.Set("username", claims["username"])
 		c.Set("email", claims["username"])
+		c.Set("role", claims["role"])
+		c.Set("uid", claims["uid"])
 
 		c.Next()
 	}

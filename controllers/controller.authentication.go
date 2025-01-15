@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"bravo-service/api/services"
-	payload_struct "bravo-service/api/structs/auth"
+	payload_struct "bravo-service/api/structs"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

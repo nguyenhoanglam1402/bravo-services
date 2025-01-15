@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS s_lesson_model CASCADE;
+DROP TABLE IF EXISTS s_category_model CASCADE;

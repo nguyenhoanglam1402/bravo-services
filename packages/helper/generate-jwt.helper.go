@@ -2,18 +2,17 @@ package helper
 
 import (
 	"errors"
-	"log"
 	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 )
 
-func GenerateJWTKey(username string, email string) (string, error) {
+func GenerateJWTKey(username string, email string, roleId string, id string) (string, error) {
 	secretKey := os.Getenv("TOKEN_AUTHORIZE_KEY")
-	log.Println(secretKey)
 
 	claims := jwt.MapClaims{
+		"uid":      id,
 		"username": username,
 		"email":    email,
 		"roles":    "SYSTEM_ADMIN",                        // <-- Hard code for sample

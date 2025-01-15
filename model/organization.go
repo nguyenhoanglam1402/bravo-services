@@ -13,6 +13,7 @@ type SOrganizationModel struct {
 	Address string `gorm:"type:varchar(255);not null"`
 	Country string `gorm:"type:varchar(255);not null"`
 	Email   string `gorm:"type:varchar(255);not null;unique"`
+	OwnerId string `gorm:"column:owner_id;type:varchar;size:255"`
 
 	CreatedAt time.Time      `gorm:"type:timestamp(3);not null;default:CURRENT_TIMESTAMP"`
 	UpdatedAt time.Time      `gorm:"type:timestamp(3);not null"`
