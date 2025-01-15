@@ -12,4 +12,5 @@ type SSignUpPayload struct {
 	Company  string `json:"company" binding:"required"`
 	Country  string `json:"country" binding:"required"`
 	Password string `json:"password" binding:"required"`
+	RoleId   string `json:"role_id" binding:"required"`
 }

@@ -34,10 +34,18 @@ func JWTMiddleware() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
+<<<<<<< HEAD
+		// Set the username from the token claims to the context
+		c.Set("username", claims["username"])
+		c.Set("email", claims["username"])
+		c.Set("role", claims["role"])
+		c.Set("uid", claims["uid"])
+=======
 
 		// Set the username from the token claims to the context
 		c.Set("username", claims["username"])
 		c.Set("email", claims["username"])
+>>>>>>> c2516f8374928f024a808e95b22156a2ad3ad03f
 
 		c.Next()
 	}

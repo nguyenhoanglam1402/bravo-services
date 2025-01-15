@@ -10,7 +10,7 @@ migrate_up:
 	$(MIGRATE_CMD) -verbose up
 
 migrate_force: 
-	$(MIGRATE_CMD) - verbose force
+	$(MIGRATE_CMD) -verbose force
 
 migrate_down: 
 	$(MIGRATE_CMD) -verbose down 1
