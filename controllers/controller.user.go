@@ -20,5 +20,5 @@ func GetProfileHandler(c *gin.Context) {
 		c.JSON(http.StatusFound, gin.H{"message": err.Error()})
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": res})
+	c.JSON(http.StatusOK, gin.H{"body": res})
 }
