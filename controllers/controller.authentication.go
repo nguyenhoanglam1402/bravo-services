@@ -12,7 +12,10 @@ func LoginHandler(c *gin.Context) {
 	var bodyPld payload_struct.SLoginPayload
 
 	if err := c.ShouldBind(&bodyPld); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid payload structure", "detail": err.Error()})
+		resp := payload_struct.SRespPayload{
+			Message: "Invalid payload structure",
+		}
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
@@ -25,26 +28,41 @@ func LoginHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"data": gin.H{
-			"access_token": res,
-		}})
+	resp := payload_struct.SRespPayload{
+		Body: map[string]interface{}{"access_token": res},
+	}
+
+	c.JSON(http.StatusOK, resp)
 }
 
 func SignUpHandler(c *gin.Context) {
 	var bodyPld payload_struct.SSignUpPayload
 
 	if err := c.ShouldBind(&bodyPld); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid payload structure", "detail": err.Error()})
+		resp := payload_struct.SRespPayload{
+			Message: "Invalid payload structure",
+			Detail:  err.Error(),
+		}
+		c.JSON(http.StatusBadRequest, resp)
 		return
 	}
 
 	data, err := services.SignUpService(&bodyPld)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+		resp := payload_struct.SRespPayload{
+			Message: "Unexpected Error",
+			Detail:  err.Error(),
+		}
+		c.JSON(http.StatusInternalServerError, resp)
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": data})
+	successResp := payload_struct.SRespPayload{
+		Body: map[string]interface{}{
+			"access_token": data,
+		},
+	}
+
+	c.JSON(http.StatusOK, successResp)
 }
