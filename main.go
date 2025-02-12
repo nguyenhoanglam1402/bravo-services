@@ -20,7 +20,13 @@ func main() {
 	router := gin.Default()
 	router.Use(middlewares.CORSMiddleware())
 	rV1 := router.Group("/api/v1")
+
+	//Routers
 	routers.AuthenticationRouter(rV1)
 	routers.UserRouters(rV1)
+	routers.VersionControlRouter(rV1)
+	routers.LessionRouter(rV1)
+
+	//Server starting
 	router.Run(":8080")
 }

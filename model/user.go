@@ -13,15 +13,17 @@ type SAuthentModel struct {
 }
 
 type SUserModel struct {
-	ID        string        `gorm:"type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
-	Fullname  string        `gorm:"size:255;not null" json:"fullname"`
-	Email     string        `gorm:"size:255;not null;unique" json:"email"`
-	JobTitle  string        `gorm:"size:50" json:"job_title"`
-	Country   string        `gorm:"size:50" json:"country"`
-	RoleID    string        `gorm:"column:role_id;type:varchar;size:255" json:"role_id"`       // Foreign key to Role
-	Role      SRoleModel    `gorm:"foreignKey:RoleID;contraint:OnDelete:CASCADE" json:"role"`  // Reference to RSoleModel
-	AuthID    string        `gorm:"type:uuid;not null" json:"auth_id"`                         // Foreign key to Authentication
-	Auth      SAuthentModel `gorm:"foreignKey:AuthID;constraint:OnDelete:CASCADE" json:"auth"` // Reference to SAuthentModel
-	CreatedAt time.Time     `gorm:"autoCreateTime" json:"created_at"`
-	UpdatedAt time.Time     `gorm:"autoUpdateTime" json:"updated_at"`
+	ID        string     `gorm:"type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
+	Fullname  string     `gorm:"size:255;not null" json:"fullname"`
+	Email     string     `gorm:"size:255;not null;unique" json:"email"`
+	JobTitle  string     `gorm:"size:50" json:"job_title"`
+	Country   string     `gorm:"size:50" json:"country"`
+	RoleID    string     `gorm:"column:role_id;type:varchar;size:255" json:"role_id"`      // Foreign key to Role
+	Role      SRoleModel `gorm:"foreignKey:RoleID;contraint:OnDelete:CASCADE" json:"role"` // Reference to RSoleModel
+	AuthID    string     `gorm:"type:uuid;not null" json:"auth_id"`                        // Foreign key to Authentication
+	CreatedAt time.Time  `gorm:"autoCreateTime" json:"created_at"`
+	UpdatedAt time.Time  `gorm:"autoUpdateTime" json:"updated_at"`
+
+	//Relationship
+	Auth SAuthentModel `gorm:"foreignKey:AuthID;constraint:OnDelete:CASCADE" json:"auth"` // Reference to SAuthentModel
 }

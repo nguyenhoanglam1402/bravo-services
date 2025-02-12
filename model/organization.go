@@ -31,6 +31,7 @@ type SEduGroupModel struct {
 	DeletedAt gorm.DeletedAt `gorm:"type:timestamp(3);index"`
 	BannedAt  *time.Time     `gorm:"type:timestamp(3)"`
 
+	//Relationship
 	Organization SOrganizationModel `gorm:"foreignKey:OrganizationID;constraint:OnDelete:CASCADE"`
 }
 
@@ -43,5 +44,6 @@ type SClassModel struct {
 	UpdatedAt time.Time      `gorm:"type:timestamp(3);not null"`
 	DeletedAt gorm.DeletedAt `gorm:"type:timestamp(3);index"`
 
+	//Relationship
 	EduGroup SEduGroupModel `gorm:"foreignKey:EduGroupID;constraint:OnDelete:CASCADE"`
 }
