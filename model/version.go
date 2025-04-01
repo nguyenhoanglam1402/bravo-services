@@ -8,13 +8,13 @@ import (
 )
 
 type SVersion struct {
-	ID              uuid.UUID  `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
-	BranchID        uuid.UUID  `gorm:"type:uuid;not null"`
-	AuthorID        uuid.UUID  `gorm:"type:uuid;not null"`
-	ParentVersionID *uuid.UUID `gorm:"type:uuid"` // Nullable for initial versions
-	RawData         string     `gorm:"type:text;not null"`
-	CompData        string     `gorm:"type:text"`
-	CreatedAt       time.Time  `gorm:"type:timestamp(3);default:CURRENT_TIMESTAMP"`
+	ID              uuid.UUID `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"`
+	BranchID        uuid.UUID `gorm:"type:uuid;not null"`
+	AuthorID        uuid.UUID `gorm:"type:uuid;not null"`
+	ParentVersionID uuid.UUID `gorm:"type:uuid"` // Nullable for initial versions
+	RawData         string    `gorm:"type:text;not null"`
+	CompData        string    `gorm:"type:text"`
+	CreatedAt       time.Time `gorm:"type:timestamp(3);default:CURRENT_TIMESTAMP"`
 
 	// Relationships
 	Branch        *SBranch    `gorm:"foreignKey:BranchID;references:ID;constraint:OnDelete:CASCADE"`

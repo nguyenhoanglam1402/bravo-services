@@ -5,6 +5,8 @@ import (
 	"bravo-service/api/model"
 	payload_struct "bravo-service/api/structs"
 	"fmt"
+
+	"github.com/google/uuid"
 )
 
 func CreateLessonService(pld *payload_struct.SCreateLessonPayload) error {
@@ -45,7 +47,7 @@ func CreateLessonService(pld *payload_struct.SCreateLessonPayload) error {
 	versionData := model.SVersion{
 		BranchID:        branchData.ID,
 		AuthorID:        pld.AuthorId,
-		ParentVersionID: nil,
+		ParentVersionID: uuid.UUID{},
 		RawData:         "",
 		CompData:        "",
 	}
@@ -61,8 +63,7 @@ func CreateLessonService(pld *payload_struct.SCreateLessonPayload) error {
 func GetLessonDataService(pld *payload_struct.SGetLessonPayload) (*model.SVersion, error) {
 
 	var versionData model.SVersion
-
-	if err := database.DB.Preload("Author").Preload("Branch").Where(model.SVersion{BranchID: pld.BranchId}).Find(&versionData).Error; err != nil {
+	if err := database.DB.Preload("Author").Preload("Branch").Where(model.SVersion{BranchID: pld.BranchId}).Order("created_at DESC").First(&versionData).Error; err != nil {
 		return nil, err
 	}
 
