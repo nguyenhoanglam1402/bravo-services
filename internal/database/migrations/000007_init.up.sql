@@ -1,22 +1,22 @@
 BEGIN;
 
-DROP TABLE IF EXISTS s_lesson_version;
+  DROP TABLE IF EXISTS s_lesson_version;
 
-CREATE TABLE s_branch
-(
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  lesson_id UUID NOT NULL,
-  created_by UUID NOT NULL,
-  created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP(3) NOT NULL,
-  CONSTRAINT fk_branch_lesson
+  CREATE TABLE s_branch
+  (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    lesson_id UUID NOT NULL,
+    created_by UUID NOT NULL,
+    created_at TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP(3) NOT NULL,
+    CONSTRAINT fk_branch_lesson
   FOREIGN KEY (lesson_id) REFERENCES s_lesson_model(id) ON DELETE CASCADE,
-  CONSTRAINT fk_branch_user
+    CONSTRAINT fk_branch_user
   FOREIGN KEY (created_by) REFERENCES s_user_models(id) ON DELETE SET NULL
-);
+  );
 
-ALTER TABLE s_lesson_model 
+  ALTER TABLE s_lesson_model 
 ADD COLUMN main_branch_id UUID NULL;
 
 ALTER TABLE s_lesson_model 
@@ -41,7 +41,7 @@ CREATE TABLE s_version
   FOREIGN KEY (branch_id) REFERENCES s_branch(id) ON DELETE CASCADE,
   CONSTRAINT fk_version_auth_lesson
   FOREIGN KEY (author_id) REFERENCES s_user_models(id) ON DELETE CASCADE,
-  CONSTRAINT fk_version_verson_lesson
+  CONSTRAINT fk_version_parent_version
   FOREIGN KEY (parent_version_id) REFERENCES s_version(id) ON DELETE SET NULL
 );
 

@@ -78,7 +78,7 @@ func CommitOnBranchHandler(c *gin.Context) {
 	if err := c.ShouldBind(&branchCommitPld); err != nil || !exist {
 		fmt.Println(err.Error())
 		errResp := payload_struct.SRespPayload{
-			Message: "invalid payload structur",
+			Message: "invalid payload structure",
 		}
 		c.JSON(http.StatusBadRequest, errResp)
 		return
@@ -96,6 +96,42 @@ func CommitOnBranchHandler(c *gin.Context) {
 
 	resp := payload_struct.SRespPayload{
 		Message: "Commit create successfully",
+	}
+	c.JSON(http.StatusOK, resp)
+
+}
+
+func GetBranchVersions(c *gin.Context) {
+	branchIdParam := c.Param("id")
+	branchId, parseErr := uuid.Parse(branchIdParam)
+
+	if parseErr != nil {
+		errResp := payload_struct.SRespPayload{
+			Message: "Branch id is not valid",
+			Detail:  parseErr.Error(),
+		}
+
+		c.JSON(http.StatusBadRequest, errResp)
+		return
+	}
+
+	res, err := services.GetAllVersionBranchService(branchId)
+
+	if err != nil {
+		errResp := payload_struct.SRespPayload{
+			Message: "Branch id is not valid",
+			Detail:  err.Error(),
+		}
+
+		c.JSON(http.StatusBadRequest, errResp)
+		return
+	}
+
+	resp := payload_struct.SRespPayload{
+		Body: map[string]interface{}{
+			"branchs": res,
+		},
+		Message: "Commit fetch successfully",
 	}
 	c.JSON(http.StatusOK, resp)
 

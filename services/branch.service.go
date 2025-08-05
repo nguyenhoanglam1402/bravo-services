@@ -8,6 +8,7 @@ import (
 	"fmt"
 
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 func CheckoutBranchService(pld *payload_struct.SBranchPayload) (*model.SVersion, error) {
@@ -27,7 +28,6 @@ func CheckoutBranchService(pld *payload_struct.SBranchPayload) (*model.SVersion,
 	branchResDB := tx.Create(&branchPld)
 
 	if branchResDB.Error != nil {
-		fmt.Printf(branchResDB.Error.Error())
 		tx.Rollback()
 		return nil, errors.New("new branch cannot be checkout")
 	}
@@ -35,7 +35,7 @@ func CheckoutBranchService(pld *payload_struct.SBranchPayload) (*model.SVersion,
 	var verPld = model.SVersion{
 		BranchID:        branchPld.ID,
 		AuthorID:        pld.UserID,
-		ParentVersionID: existVers.ID,
+		ParentVersionID: &existVers.ID,
 		RawData:         existVers.RawData,
 		CompData:        existVers.CompData,
 	}
@@ -54,14 +54,16 @@ func CheckoutBranchService(pld *payload_struct.SBranchPayload) (*model.SVersion,
 
 func GetListBranchService(id uuid.UUID) ([]model.SBranch, error) {
 	var branchs []model.SBranch
-	if err := database.DB.Where("lesson_id = ?", id).Preload("Author").Find(&branchs).Error; err != nil {
+	// Only select necessary fields and preload minimal author info
+	if err := database.DB.Select("id, name, lesson_id, created_by, created_at").Where("lesson_id = ?", id).
+		Preload("Author", func(db *gorm.DB) *gorm.DB { return db.Select("id, fullname, email") }).
+		Find(&branchs).Error; err != nil {
 		return nil, errors.New("cannot find any lesson with this id")
 	}
 	return branchs, nil
 }
 
 func CommitBranchService(pld *payload_struct.SCommitBranchPayload, uid string) error {
-
 	var uidUUID uuid.UUID
 	var uuidErr error
 
@@ -70,13 +72,51 @@ func CommitBranchService(pld *payload_struct.SCommitBranchPayload, uid string) e
 	}
 
 	version := model.SVersion{
-		BranchID: pld.BranchID,
-		RawData:  pld.RawData,
-		CompData: pld.CompData,
-		AuthorID: uidUUID,
+		BranchID:        pld.BranchID,
+		RawData:         pld.RawData,
+		CompData:        pld.CompData,
+		Message:         pld.MessageContent,
+		AuthorID:        uidUUID,
+		ParentVersionID: pld.ParentVersionID,
 	}
 	if res := database.DB.Create(&version); res.Error != nil {
+		fmt.Printf("Error: %s", res.Error.Error())
 		return errors.New("branch cannot commit version")
 	}
 	return nil
+}
+
+func GetAllVersionBranchService(branchId uuid.UUID) (*[]payload_struct.SVersionBranchTreePayload, error) {
+	var versions []model.SVersion
+	var versionParent []model.SVersion
+	// Only select necessary fields for performance
+	if err := database.DB.Select("id, branch_id, author_id, parent_version_id, raw_data, comp_data, message, created_at").Where("branch_id = ?", branchId).Find(&versions).Error; err != nil {
+		return nil, errors.New("not found any record")
+	}
+	if len(versions) == 0 {
+		return nil, errors.New("no versions found for this branch")
+	}
+	parentBranchId := versions[0].ParentVersionID
+	if parentBranchId == nil {
+		parentBranchId = &branchId // fallback to self if no parent
+	}
+	if err := database.DB.Select("id, branch_id, author_id, parent_version_id, raw_data, comp_data, message, created_at").Where("branch_id = ?", parentBranchId).Find(&versionParent).Error; err != nil {
+		return nil, errors.New("not found any parent record")
+	}
+	branchIds := []uuid.UUID{branchId, *parentBranchId}
+	var branchs []payload_struct.SVersionBranchTreePayload
+	for _, id := range branchIds {
+		var versionContents []model.SVersion
+		if id == branchId {
+			versionContents = versions
+		} else {
+			versionContents = versionParent
+		}
+		branchs = append(branchs, payload_struct.SVersionBranchTreePayload{
+			BranchID:   id,
+			BranchName: "", // Optionally load name if needed
+			Versions:   &versionContents,
+		})
+	}
+	return &branchs, nil
 }

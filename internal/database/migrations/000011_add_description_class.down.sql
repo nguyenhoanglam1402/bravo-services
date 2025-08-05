@@ -1,0 +1,1 @@
+ALTER TABLE s_class_models DROP COLUMN description;

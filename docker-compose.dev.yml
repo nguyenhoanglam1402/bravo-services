@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:13
+    container_name: bravo-postgres
+    env_file:
+      - .env.development
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U admin -d bravo-database" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  migrate:
+    image: migrate/migrate:v4.16.2
+    container_name: bravo_migrate
+    volumes:
+      - ./internal/database/migrations:/migrations
+    env_file:
+      - .env.development
+    depends_on:
+      db:
+        condition: service_healthy
+    entrypoint: [ "sh", "-c", "migrate -database=postgres://admin:mypassword@db:5432/bravo-database?sslmode=disable -source=file:///migrations up" ]
+
+  app:
+    build: .
+    container_name: bravo_services
+    volumes:
+      - ./app:/src/app
+    env_file:
+      - .env.development
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+
+volumes:
+  pgdata:

@@ -13,5 +13,6 @@ func VersionControlRouter(r *gin.RouterGroup) {
 	{
 		verRouter.POST("/checkout", controllers.CheckoutBranchHandler)
 		verRouter.POST("/commit", controllers.CommitOnBranchHandler)
+		verRouter.GET("/log-oneline/:id", controllers.GetBranchVersions)
 	}
 }
