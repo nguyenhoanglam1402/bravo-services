@@ -40,6 +40,9 @@ type SClassModel struct {
 	ClassName  string `gorm:"type:varchar(50);not null"`
 	EduGroupID string `gorm:"type:uuid;not null"`
 
+	EnrollmentKey string `gorm:"type:varchar(255);not null"`
+	Description   string `gorm:"type:varchar(255)"`
+
 	CreatedAt time.Time      `gorm:"type:timestamp(3);not null;default:CURRENT_TIMESTAMP"`
 	UpdatedAt time.Time      `gorm:"type:timestamp(3);not null"`
 	DeletedAt gorm.DeletedAt `gorm:"type:timestamp(3);index"`

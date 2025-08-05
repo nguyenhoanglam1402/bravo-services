@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🛠 Bravo Services API Documentation</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #181a1b;
+      color: #e0e0e0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #23272a;
+      padding: 32px 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 32px rgba(0, 0, 0, 0.18);
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 2.5rem;
+      margin-bottom: 0.5em;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      color: #4fa3ff;
+      font-size: 1.5rem;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.5px;
+    }
+
+    h3 {
+      color: #f9fafb;
+      font-size: 1.1rem;
+      margin-bottom: 0.5em;
+    }
+
+    code,
+    pre {
+      background: #23272a;
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: #e0e0e0;
+      font-size: 1em;
+    }
+
+    .endpoint {
+      margin-bottom: 32px;
+    }
+
+    .method {
+      font-weight: bold;
+      color: #fff;
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-right: 8px;
+      font-size: 0.95em;
+      letter-spacing: 1px;
+    }
+
+    .GET {
+      background: #27ae60;
+    }
+
+    .POST {
+      background: #2980b9;
+    }
+
+    .PUT {
+      background: #f39c12;
+    }
+
+    .DELETE {
+      background: #c0392b;
+    }
+
+    .section {
+      margin-bottom: 32px;
+      border-radius: 10px;
+      background: #23272a;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      padding: 20px 10px;
+    }
+
+    .collapsible {
+      background: #23272a;
+      color: #4fa3ff;
+      cursor: pointer;
+      padding: 18px 24px;
+      width: 100%;
+      border: none;
+      outline: none;
+      text-align: left;
+      font-size: 1.2rem;
+      font-weight: 600;
+      transition: background 0.2s;
+      border-bottom: 1px solid #333;
+    }
+
+    .collapsible.active,
+    .collapsible:hover {
+      background: #1a1d1f;
+      color: #fff;
+    }
+
+    .content {
+      padding: 0 24px 24px 24px;
+      display: none;
+      overflow: hidden;
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .param-table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 10px 0 20px 0;
+      background: #23272a;
+      color: #e0e0e0;
+    }
+
+    .param-table th,
+    .param-table td {
+      border: 1px solid #444c56;
+      padding: 8px;
+    }
+
+    .param-table th {
+      background: #181a1b;
+      color: #4fa3ff;
+    }
+
+    .example {
+      background: #181a1b;
+      padding: 10px;
+      border-radius: 4px;
+      margin: 8px 0;
+      color: #e0e0e0;
+      font-size: 0.98em;
+    }
+
+    a,
+    a:visited {
+      color: #4fa3ff;
+    }
+
+    footer {
+      color: #888;
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var coll = document.getElementsByClassName("collapsible");
+      for (var i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>🛠 Bravo Services API Documentation</h1>
+    <p style="color: #b0b0b0; font-size: 1.1em">
+      A modern, professional API reference for Bravo Services. Click each
+      section to expand/collapse endpoints.
+    </p>
+
+    <button class="collapsible">Organization APIs</button>
+    <div class="content">
+      <div class="section">
+        <div class="endpoint">
+          <span class="method GET">GET</span>
+          <code>/api/v1/organization/list</code>
+          <p>Get a list of all organizations.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "data": [
+    {
+      "id": "org-uuid",
+      "name": "Bravo Academy",
+      "zip_code": "70000",
+      "address": "123 Bravo St, HCMC",
+      "country": "Vietnam",
+      "email": "contact@bravo.vn",
+      "owner_id": "user-uuid",
+      "created_at": "2025-06-10T10:00:00Z",
+      "updated_at": "2025-06-10T10:00:00Z"
+    }
+  ]
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>data</td>
+                <td>array</td>
+                <td>List of organizations</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method GET">GET</span>
+          <code>/api/v1/organization/detail/:id</code>
+          <p>Get details of a specific organization by ID.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "data": {
+    "id": "org-uuid",
+    "name": "Bravo Academy",
+    "zip_code": "70000",
+    "address": "123 Bravo St, HCMC",
+    "country": "Vietnam",
+    "email": "contact@bravo.vn",
+    "owner_id": "user-uuid",
+    "created_at": "2025-06-10T10:00:00Z",
+    "updated_at": "2025-06-10T10:00:00Z"
+  }
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>data</td>
+                <td>object</td>
+                <td>Organization details</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method POST">POST</span>
+          <code>/api/v1/organization/register</code>
+          <p>Create a new organization.</p>
+          <b>Request Body:</b>
+          <table class="param-table">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>zip_code</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>country</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>email</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>address</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+          </table>
+          <div class="example">
+            <b>Example Request:</b>
+            <pre>{
+  "name": "Bravo Academy",
+  "zip_code": "70000",
+  "country": "Vietnam",
+  "email": "contact@bravo.vn",
+  "address": "123 Bravo St, HCMC"
+}</pre>
+            <b>Example Response:</b>
+            <pre>{
+  "message": "create user successfully"
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>Status message</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method PUT">PUT</span>
+          <code>/api/v1/organization/update/:id</code>
+          <p>Update an existing organization by ID.</p>
+          <b>Request Body:</b> (same as create)
+          <div class="example">
+            <b>Example Request:</b>
+            <pre>{
+  "name": "Bravo Academy Updated",
+  "zip_code": "70001",
+  "country": "Vietnam",
+  "email": "contact@bravo.vn",
+  "address": "456 Bravo St, HCMC"
+}</pre>
+            <b>Example Response:</b>
+            <pre>{
+  "message": "update organization successfully"
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>Status message</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method DELETE">DELETE</span>
+          <code>/api/v1/organization/delete/:id</code>
+          <p>Delete an organization by ID.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "message": "delete organization successfully"
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>Status message</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method POST">POST</span>
+          <code>/api/v1/organization/search</code>
+          <p>Search organizations by name, email, or address (partial match).</p>
+          <b>Request Body:</b>
+          <table class="param-table">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td>query</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+          </table>
+          <div class="example">
+            <b>Example Request:</b>
+            <pre>{
+  "query": "Bravo"
+}</pre>
+            <b>Example Response:</b>
+            <pre>{
+  "data": [
+    {
+      "id": "org-uuid",
+      "name": "Bravo Academy",
+      "zip_code": "70000",
+      "address": "123 Bravo St, HCMC",
+      "country": "Vietnam",
+      "email": "contact@bravo.vn",
+      "owner_id": "user-uuid",
+      "created_at": "2025-06-10T10:00:00Z",
+      "updated_at": "2025-06-10T10:00:00Z"
+    }
+  ]
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>data</td>
+                <td>array</td>
+                <td>List of organizations matching the search query</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="collapsible">Class APIs</button>
+    <div class="content">
+      <div class="section">
+        <div class="endpoint">
+          <span class="method GET">GET</span> <code>/api/v1/class/list</code>
+          <p>Get a list of all classes.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "data": [
+    {
+      "id": "class-uuid",
+      "class_name": "Math 101",
+      "edu_group_id": "b1a2c3d4-e5f6-7890-abcd-1234567890ef",
+      "enrollment_key": "secure-key-2025",
+      "created_at": "2025-06-10T10:00:00Z",
+      "updated_at": "2025-06-10T10:00:00Z"
+    }
+  ]
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>data</td>
+                <td>array</td>
+                <td>List of classes</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method GET">GET</span>
+          <code>/api/v1/class/detail/:id</code>
+          <p>Get details of a specific class by ID.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "data": {
+    "id": "class-uuid",
+    "class_name": "Math 101",
+    "edu_group_id": "b1a2c3d4-e5f6-7890-abcd-1234567890ef",
+    "enrollment_key": "secure-key-2025",
+    "created_at": "2025-06-10T10:00:00Z",
+    "updated_at": "2025-06-10T10:00:00Z"
+  }
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>data</td>
+                <td>object</td>
+                <td>Class details</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method POST">POST</span>
+          <code>/api/v1/class/create</code>
+          <p>Create a new class.</p>
+          <b>Request Body:</b>
+          <table class="param-table">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td>class_name</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>edu_group_id</td>
+              <td>string (UUID)</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>enrollment_key</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+          </table>
+          <div class="example">
+            <b>Example Request:</b>
+            <pre>{
+  "class_name": "Math 101",
+  "edu_group_id": "b1a2c3d4-e5f6-7890-abcd-1234567890ef",
+  "enrollment_key": "secure-key-2025"
+}</pre>
+            <b>Example Response:</b>
+            <pre>{
+  "message": "create class successfully"
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>Status message</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method PUT">PUT</span>
+          <code>/api/v1/class/update/:id</code>
+          <p>Update an existing class by ID.</p>
+          <b>Request Body:</b> (same as create)
+          <div class="example">
+            <b>Example Request:</b>
+            <pre>{
+  "class_name": "Math 101 Updated",
+  "edu_group_id": "b1a2c3d4-e5f6-7890-abcd-1234567890ef",
+  "enrollment_key": "secure-key-2025-updated"
+}</pre>
+            <b>Example Response:</b>
+            <pre>{
+  "message": "update class successfully"
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>Status message</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method DELETE">DELETE</span>
+          <code>/api/v1/class/delete/:id</code>
+          <p>Delete a class by ID.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "message": "delete class successfully"
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>Status message</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="collapsible">Authentication APIs</button>
+    <div class="content">
+      <div class="section">
+        <div class="endpoint">
+          <span class="method POST">POST</span>
+          <code>/api/v1/auth/login</code>
+          <p>Login and receive a JWT token.</p>
+          <b>Request Body:</b>
+          <table class="param-table">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td>username</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>password</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+          </table>
+          <div class="example">
+            <b>Example:</b>
+            <pre>
+{
+  "username": "Admin_user_1",
+  "password": "password123"
+}</pre>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method POST">POST</span>
+          <code>/api/v1/auth/signup</code>
+          <p>Register a new user.</p>
+          <b>Request Body:</b>
+          <table class="param-table">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td>fullname</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>email</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>country</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>role_id</td>
+              <td>string (UUID)</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>username</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>password</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+          </table>
+          <div class="example">
+            <b>Example:</b>
+            <pre>
+{
+  "fullname": "User 1",
+  "email": "user1@bravo.dev",
+  "country": "Vietnam",
+  "role_id": "role-uuid-here",
+  "username": "user1",
+  "password": "password123"
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="collapsible">User APIs</button>
+    <div class="content">
+      <div class="section">
+        <div class="endpoint">
+          <span class="method GET">GET</span> <code>/api/v1/user/list</code>
+          <p>Get a list of all users.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "data": [
+    {
+      "id": "user-uuid",
+      "fullname": "User 1",
+      "email": "user1@bravo.dev",
+      "country": "Vietnam",
+      "role_id": "role-uuid-here",
+      "username": "user1",
+      "created_at": "2025-06-10T10:00:00Z",
+      "updated_at": "2025-06-10T10:00:00Z"
+    }
+  ]
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>data</td>
+                <td>array</td>
+                <td>List of users</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method GET">GET</span>
+          <code>/api/v1/user/detail/:id</code>
+          <p>Get details of a specific user by ID.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "data": {
+    "id": "user-uuid",
+    "fullname": "User 1",
+    "email": "user1@bravo.dev",
+    "country": "Vietnam",
+    "role_id": "role-uuid-here",
+    "username": "user1",
+    "created_at": "2025-06-10T10:00:00Z",
+    "updated_at": "2025-06-10T10:00:00Z"
+  }
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>data</td>
+                <td>object</td>
+                <td>User details</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method PUT">PUT</span>
+          <code>/api/v1/user/update/:id</code>
+          <p>Update a user by ID.</p>
+          <b>Request Body:</b>
+          <table class="param-table">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td>fullname</td>
+              <td>string</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>email</td>
+              <td>string</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>country</td>
+              <td>string</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>role_id</td>
+              <td>string (UUID)</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>username</td>
+              <td>string</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>password</td>
+              <td>string</td>
+              <td>No</td>
+            </tr>
+          </table>
+          <div class="example">
+            <b>Example Request:</b>
+            <pre>{
+  "fullname": "User 1 Updated",
+  "email": "user1_updated@bravo.dev",
+  "country": "Vietnam",
+  "role_id": "role-uuid-updated",
+  "username": "user1_updated",
+  "password": "password1234"
+}</pre>
+            <b>Example Response:</b>
+            <pre>{
+  "message": "update user successfully"
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>Status message</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method DELETE">DELETE</span>
+          <code>/api/v1/user/delete/:id</code>
+          <p>Delete a user by ID.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "message": "delete user successfully"
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>Status message</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="collapsible">Lesson APIs</button>
+    <div class="content">
+      <div class="section">
+        <div class="endpoint">
+          <span class="method POST">POST</span>
+          <code>/api/v1/lesson/create</code>
+          <p>Create a new lesson.</p>
+          <b>Request Body:</b>
+          <table class="param-table">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>author_id</td>
+              <td>string (UUID)</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>category_id</td>
+              <td>string (UUID)</td>
+              <td>Yes</td>
+            </tr>
+          </table>
+          <div class="example">
+            <b>Example Request:</b>
+            <pre>{
+  "name": "Sample Lesson",
+  "author_id": "user-uuid",
+  "category_id": "category-uuid"
+}</pre>
+            <b>Example Response:</b>
+            <pre>{
+  "message": "Create lesson successfully on master branch"
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>Status message</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method GET">GET</span>
+          <code>/api/v1/lesson/fetch</code>
+          <p>Get lesson data by branch ID.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "body": {
+    "data": {
+      "id": "lesson-uuid",
+      "name": "Sample Lesson",
+      "author_id": "user-uuid",
+      "category_id": "category-uuid",
+      "created_at": "2025-06-10T10:00:00Z"
+    }
+  }
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>body.data</td>
+                <td>object</td>
+                <td>Lesson details</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method GET">GET</span>
+          <code>/api/v1/lesson/branchs/:id</code>
+          <p>Get all branches for a lesson by lesson ID.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "body": {
+    "data": [
+      {
+        "id": "branch-uuid",
+        "name": "Main Branch",
+        "lesson_id": "lesson-uuid",
+        "created_by": "user-uuid",
+        "created_at": "2025-06-10T10:00:00Z"
+      }
+    ]
+  }
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>body.data</td>
+                <td>array</td>
+                <td>List of branches for lesson</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="collapsible">Branch APIs</button>
+    <div class="content">
+      <div class="section">
+        <div class="endpoint">
+          <span class="method POST">POST</span>
+          <code>/api/v1/branch/create</code>
+          <p>Create a new branch.</p>
+        </div>
+        <div class="endpoint">
+          <span class="method GET">GET</span> <code>/api/v1/branch/list</code>
+          <p>Get a list of all branches.</p>
+        </div>
+        <div class="endpoint">
+          <span class="method GET">GET</span>
+          <code>/api/v1/branch/detail/:id</code>
+          <p>Get details of a specific branch by ID.</p>
+        </div>
+        <div class="endpoint">
+          <span class="method PUT">PUT</span>
+          <code>/api/v1/branch/update/:id</code>
+          <p>Update a branch by ID.</p>
+          <b>Request Body:</b>
+          <table class="param-table">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td>branch_name</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+          </table>
+          <div class="example">
+            <b>Example Request:</b>
+            <pre>{
+  "branch_name": "Main Branch Updated"
+}</pre>
+            <b>Example Response:</b>
+            <pre>{
+  "message": "update branch successfully"
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>Status message</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method DELETE">DELETE</span>
+          <code>/api/v1/branch/delete/:id</code>
+          <p>Delete a branch by ID.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "message": "delete branch successfully"
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>Status message</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="collapsible">Version APIs</button>
+    <div class="content">
+      <div class="section">
+        <div class="endpoint">
+          <span class="method POST">POST</span>
+          <code>/api/v1/version/commit</code>
+          <p>Commit a new version to a branch.</p>
+          <b>Request Body:</b>
+          <table class="param-table">
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Required</th>
+            </tr>
+            <tr>
+              <td>branch_id</td>
+              <td>string (UUID)</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>author_id</td>
+              <td>string (UUID)</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>raw_data</td>
+              <td>string</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>message</td>
+              <td>string</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>comp_data</td>
+              <td>string</td>
+              <td>No</td>
+            </tr>
+          </table>
+          <div class="example">
+            <b>Example Request:</b>
+            <pre>{
+  "branch_id": "branch-uuid",
+  "author_id": "user-uuid",
+  "raw_data": "{\"content\":\"Initial\"}",
+  "message": "Initial commit",
+  "comp_data": ""
+}</pre>
+            <b>Example Response:</b>
+            <pre>{
+  "message": "commit version successfully"
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>message</td>
+                <td>string</td>
+                <td>Status message</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method GET">GET</span>
+          <code>/api/v1/version/tree/:branch_id</code>
+          <p>Get the version tree for a branch.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "data": [
+    {
+      "id": "version-uuid",
+      "branch_id": "branch-uuid",
+      "author_id": "user-uuid",
+      "raw_data": "{\"content\":\"Initial\"}",
+      "message": "Initial commit",
+      "created_at": "2025-06-10T10:00:00Z"
+    }
+  ]
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>data</td>
+                <td>array</td>
+                <td>List of versions</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method GET">GET</span>
+          <code>/api/v1/version/detail/:id</code>
+          <p>Get details of a specific version by ID.</p>
+          <div class="example">
+            <b>Sample Response:</b>
+            <pre>{
+  "data": {
+    "id": "version-uuid",
+    "branch_id": "branch-uuid",
+    "author_id": "user-uuid",
+    "raw_data": "{\"content\":\"Initial\"}",
+    "message": "Initial commit",
+    "created_at": "2025-06-10T10:00:00Z"
+  }
+}</pre>
+            <b>Response Table:</b>
+            <table class="param-table">
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+              <tr>
+                <td>data</td>
+                <td>object</td>
+                <td>Version details</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Authentication</h2>
+      <p>
+        All endpoints require JWT authentication. Pass the token in the
+        <code>Authorization</code> header as
+        <code>Bearer &lt;token&gt;</code>.
+      </p>
+    </div>
+
+    <footer style="margin-top: 40px; color: #888; font-size: 14px">
+      Bravo Services API &copy; 2025
+    </footer>
+  </div>
+</body>
+
+</html>

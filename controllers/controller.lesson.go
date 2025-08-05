@@ -3,6 +3,7 @@ package controllers
 import (
 	"bravo-service/api/services"
 	payload_struct "bravo-service/api/structs"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -54,6 +55,7 @@ func LessonGetHandler(c *gin.Context) {
 	}
 
 	data, err := services.GetLessonDataService(&lessonPld)
+	fmt.Println(err)
 
 	if err != nil {
 		errRes := payload_struct.SRespPayload{

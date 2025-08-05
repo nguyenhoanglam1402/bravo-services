@@ -8,17 +8,17 @@ import (
 )
 
 type SLessonModel struct {
-	ID           uuid.UUID      `gorm:"type:uuid;default:gen_random_uuid();primaryKey"`
-	Name         string         `gorm:"type:varchar(255);not null"`
-	AuthorID     uuid.UUID      `gorm:"type:uuid;not null;index"`
-	CategoryID   uuid.UUID      `gorm:"type:uuid;not null;index"`
-	MainBranchID *uuid.UUID     `gorm:"type:uuid"`
-	CreatedAt    time.Time      `gorm:"type:timestamp(3);default:current_timestamp"`
-	UpdatedAt    time.Time      `gorm:"type:timestamp(3);default:current_timestamp"`
-	DeletedAt    gorm.DeletedAt `gorm:"index"`
+	ID           uuid.UUID      `gorm:"type:uuid;default:gen_random_uuid();primaryKey" json:"id"`
+	Name         string         `gorm:"type:varchar(255);not null" json:"name"`
+	AuthorID     uuid.UUID      `gorm:"type:uuid;not null;index" json:"author_id"`
+	CategoryID   uuid.UUID      `gorm:"type:uuid;not null;index" json:"category_id"`
+	MainBranchID *uuid.UUID     `gorm:"type:uuid" json:"main_branch_id"`
+	CreatedAt    time.Time      `gorm:"type:timestamp(3);default:current_timestamp" json:"created_at"`
+	UpdatedAt    time.Time      `gorm:"type:timestamp(3);default:current_timestamp" json:"updated_at"`
+	DeletedAt    gorm.DeletedAt `gorm:"index" json:"deleted_at"`
 
 	// Relationship for Eager Loading Mode
-	Author     SUserModel     `gorm:"foreignKey:AuthorID;constraint:OnDelete:CASCADE"`
-	Category   SCategoryModel `gorm:"foreignKey:CategoryID;constraint:OnDelete:CASCADE"`
-	MainBranch *SBranch       `gorm:"foreignKey:MainBranchID;constraint:OnDelete:SET NULL"`
+	Author     SUserModel     `gorm:"foreignKey:AuthorID;constraint:OnDelete:CASCADE" json:"author"`
+	Category   SCategoryModel `gorm:"foreignKey:CategoryID;constraint:OnDelete:CASCADE" json:"category"`
+	MainBranch *SBranch       `gorm:"foreignKey:MainBranchID;constraint:OnDelete:SET NULL" json:"main_branch"`
 }

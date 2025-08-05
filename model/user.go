@@ -25,5 +25,5 @@ type SUserModel struct {
 	UpdatedAt time.Time  `gorm:"autoUpdateTime" json:"updated_at"`
 
 	//Relationship
-	Auth SAuthentModel `gorm:"foreignKey:AuthID;constraint:OnDelete:CASCADE" json:"auth"` // Reference to SAuthentModel
+	Auth SAuthentModel `gorm:"foreignKey:AuthID;constraint:OnDelete:CASCADE" json:"-"` // Reference to SAuthentModel
 }

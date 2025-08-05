@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"bravo-service/api/packages/helper"
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -39,6 +40,8 @@ func JWTMiddleware() gin.HandlerFunc {
 		c.Set("email", claims["username"])
 		c.Set("role", claims["role"])
 		c.Set("uid", claims["uid"])
+
+		fmt.Printf("Claim: %g", claims["uid"])
 
 		c.Next()
 	}

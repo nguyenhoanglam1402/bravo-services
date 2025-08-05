@@ -5,6 +5,8 @@ import (
 	"bravo-service/api/model"
 	payload_struct "bravo-service/api/structs"
 	"fmt"
+
+	"gorm.io/gorm"
 )
 
 func CreateLessonService(pld *payload_struct.SCreateLessonPayload) error {
@@ -59,12 +61,16 @@ func CreateLessonService(pld *payload_struct.SCreateLessonPayload) error {
 }
 
 func GetLessonDataService(pld *payload_struct.SGetLessonPayload) (*model.SVersion, error) {
-
 	var versionData model.SVersion
-
-	if err := database.DB.Preload("Author").Preload("Branch").Where(model.SVersion{BranchID: pld.BranchId}).Find(&versionData).Error; err != nil {
+	// Optimize: Only select necessary fields, use index, and avoid loading large associations unless needed
+	if err := database.DB.
+		Select("id, branch_id, author_id, parent_version_id, raw_data, comp_data, created_at").
+		Preload("Author", func(db *gorm.DB) *gorm.DB { return db.Select("id, fullname, email") }).
+		Preload("Branch", func(db *gorm.DB) *gorm.DB { return db.Select("id, name, lesson_id") }).
+		Where("branch_id = ?", pld.BranchId).
+		Order("created_at DESC").
+		First(&versionData).Error; err != nil {
 		return nil, err
 	}
-
 	return &versionData, nil
 }
